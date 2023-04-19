@@ -9,28 +9,31 @@ $(function scheduleTime() {
   console.log(time);
 
 // $('#currentDay').text(today.format('dddd, MMMM D, YYYY, h:mm'));
-$('#currentDay').text(today.format('dddd, MMMM D, YYYY h:mm A'));
+$("#currentDay").text(today.format('dddd, MMMM D, YYYY h:mm A'));
 
 
 
 // Creating the hour variable//
-var now 
-
-let schedule9am = $("#hour-9");
-let schedule10am = $("#hour-10");
-let schedule11am = $("#hour-11");
-
+let nineAm = $("#9am");
+let tenAm = $("#10am");
+let elevenAm = $("#11am");
+let  twelvePm = $("#12pm");
+let  onePm = $("#1pm");
+let  twoPm = $("#2pm");
+let  threePm = $("#3pm");
+let  fourPm = $("#4pm");
+let fivePm = $("#5pm");
 
 let scheduleElArray = [
-  schedule9am,
-  schedule10am,
-  schedule11am,
-  schedule12pm,
-  schedule1pm,
-  schedule2pm,
-  schedule3pm,
-  schedule4pm,
-  schedule5pm,
+  nineAm, 
+  tenAm,
+  elevenAm,
+  twelvePm,
+  onePm,
+  twoPm,
+  threePm,
+  fourPm,
+  fivePm ,
 ];
 
 renderLastRegistered();
@@ -105,20 +108,31 @@ function renderLastRegistered() {
 
 
 
-  // Get the current hour in 24-hour format using Day.js
-var currentHour = dayjs().hour();
+//   // Get the current hour in 24-hour format using Day.js
+// var currentHour = dayjs().hour();
 
-// Loop through all time blocks and apply the appropriate class
-$(".time-block").each(function() {
-  var blockHour = parseInt($(this).attr("id").split("-")[1]);
+// // Loop through all time blocks and apply the appropriate class
+// $(".time-block").each(function() {
+//   var blockHour = parseInt($(this).attr("id").split("-")[1]);
 
-  if (blockHour < currentHour) {
-    $(this).addClass("row time-block past");
-  } else if (blockHour === currentHour) {
-    $(this).addClass("row time-block present");
-  } else {
-    $(this).addClass("row time-block future");
-  }
-});
+//   if (blockHour < currentHour) {
+//     $(this).addClass("row time-block past");
+//   } else if (blockHour === currentHour) {
+//     $(this).addClass("row time-block present");
+//   } else {
+//     $(this).addClass("row time-block future");
+//   }
+// });
  
-console.log(blockHour)
+// console.log(blockHour)
+// Add click event listener to save button
+$("#saveBtn").on("click", function() {
+  // Get the text value and hour of the textarea that corresponds to the clicked save button
+  var textValue = $(this).siblings("textarea").val();
+  var hour = $(this).parent().attr("id").split("-")[1];
+
+  // Save the text value and hour to local storage
+  localStorage.setItem("hour-" + hour, textValue);
+  console.log(textValue);
+  console.log(hour);
+});
