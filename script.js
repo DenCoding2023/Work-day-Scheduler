@@ -1,53 +1,88 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
-$(function scheduleTime() {
+// $(function scheduleTime() {
     // var time= moment();
   // Set the day and time of the header//
-  var today = dayjs();
-  var time = today.format('H');
-  console.log(time);
-
+  // var today = dayjs();
+  // var time = today.format('H');
+  // console.log(time);
+// });
+var today =dayjs();
 // $('#currentDay').text(today.format('dddd, MMMM D, YYYY, h:mm'));
 $("#currentDay").text(today.format('dddd, MMMM D, YYYY h:mm A'));
 
 
+var currentDate = moment().format('dddd') + " " + moment().format("Do MMM YYYY");
+var currentHour = moment().format('h:mm:ss a');
 
 // Creating the hour variable//
-let nineAm = $("#9am");
-let tenAm = $("#10am");
-let elevenAm = $("#11am");
-let  twelvePm = $("#12pm");
-let  onePm = $("#1pm");
-let  twoPm = $("#2pm");
-let  threePm = $("#3pm");
-let  fourPm = $("#4pm");
-let fivePm = $("#5pm");
+var nineAm = $("#9am");
+var tenAm = $("#10am");
+var elevenAm = $("#11am");
+var  twelvePm = $("#12pm");
+var  onePm = $("#1pm");
+var  twoPm = $("#2pm");
+var  threePm = $("#3pm");
+var  fourPm = $("#4pm");
+var fivePm = $("#5pm");
 
-let scheduleElArray = [
-  nineAm, 
-  tenAm,
-  elevenAm,
-  twelvePm,
-  onePm,
-  twoPm,
-  threePm,
-  fourPm,
-  fivePm ,
-];
+var hour = moment().hours();
+var userInput;
+var hourSpan;
+var nineAm;
 
-renderLastRegistered();
-updateTime();
-setInterval(updateTime, 1000); 
+// function initPage() {
 
-// render schedule saved in local storage
-function renderLastRegistered() {
-  for (let el of scheduleElArray) {
-      el.val(localStorage.getItem("time block " + el.data("hour")));
+//   console.log("Current Hour " + hour);
+//   var init9 = JSON.parse(localStorage.getItem("09:00 am"));
+//   nineAm.val(init9);
+// }
+
+// function background () {
+
+
+  function initPage() {
+
+    console.log("Current Hour " + hour);
+    var init9 = JSON.parse(localStorage.getItem("09:00 am"));
+    nineAm.val(init9);
+  }
+      
+  $(".form-control").each(function () {
+      var timeTest = parseInt($(this).attr("id"));
+      hour = parseInt(hour);
+      console.log(timeTest);
+      console.log(hour);
+//      console.log(this);
+      if (hour > timeTest) {
+          $(this).addClass("past");
+      } else if (hour < timeTest) {
+          $(this).addClass("future");
+      } else {
+          $(this).addClass("present");
+      }
+  })
+
+  // Buttons (save to Local Storage)
+  $(".saveBtn").on("click", function(){
+    userInput = $(this).siblings("textarea").val().trim();
+    console.log(userInput);
+    hourSpan = $(this).parent().attr("id").trim();
+    console.log(hourSpan);
+    localStorage.setItem(hourSpan, JSON.stringify(userInput));
+
+  })
+
+  // $("#9am").val(localStorage.getItem("9AM"))
+ 
+
+  for(var i=9; i <=17; i++){
+    $("#"+i).val(localStorage.getItem("hour-"+i))
 
   }
-}
 
+// };
 
 
 
@@ -103,7 +138,7 @@ function renderLastRegistered() {
     // attribute of each time-block be used to do this?
     //
     // TODO: Add code to display the current date in the header of the page.
-  });
+  // });
 
 
 
@@ -126,13 +161,13 @@ function renderLastRegistered() {
  
 // console.log(blockHour)
 // Add click event listener to save button
-$("#saveBtn").on("click", function() {
-  // Get the text value and hour of the textarea that corresponds to the clicked save button
-  var textValue = $(this).siblings("textarea").val();
-  var hour = $(this).parent().attr("id").split("-")[1];
+// $("#saveBtn").on("click", function() {
+//   // Get the text value and hour of the textarea that corresponds to the clicked save button
+//   var textValue = $(this).siblings("textarea").val();
+//   var hour = $(this).parent().attr("id").split("-")[1];
 
-  // Save the text value and hour to local storage
-  localStorage.setItem("hour-" + hour, textValue);
-  console.log(textValue);
-  console.log(hour);
-});
+//   // Save the text value and hour to local storage
+//   localStorage.setItem("hour-" + hour, textValue);
+//   console.log(textValue);
+//   console.log(hour);
+// });
