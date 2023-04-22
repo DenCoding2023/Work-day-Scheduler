@@ -63,25 +63,94 @@ var nineAm;
           $(this).addClass("present");
       }
   })
-
+//  changing textarea to descriptoin
   // Buttons (save to Local Storage)
   $(".saveBtn").on("click", function(){
-    userInput = $(this).siblings("textarea").val().trim();
+    userInput = $(this).siblings(".description").val().trim();
     console.log(userInput);
     hourSpan = $(this).parent().attr("id").trim();
     console.log(hourSpan);
     localStorage.setItem(hourSpan, JSON.stringify(userInput));
 
   })
+  let timeBlockEl = $(".time-block");
+  let timeBlockText = $(".description");
 
-  // $("#9am").val(localStorage.getItem("9AM"))
- 
 
-  for(var i=9; i <=17; i++){
-    $("#"+i).val(localStorage.getItem("hour-"+i))
+  timeBlockText.each(function () {
+    let timeBlockId = $(this).parent().attr("id");
+    let savedDescription = localStorage.getItem(timeBlockId);
+    if (savedDescription) {
+      $(this).val(savedDescription);
+    }
+  });
 
-  }
 
+  // $("#9am").val(localStorage.getItem("text-center"));
+  // $("#10am").val(localStorage.getItem("10AM"));
+  // $("#3pm").val(localStorage.getItem("3PM"));
+  // $("#4pm").val(localStorage.getItem("4PM"));
+
+  // console.log(this);
+  // var text = $(this).siblings(".description").val(); // taken the change from the sibling html description attribute
+  // var time = $(this).parent().attr("id"); // taken the change from the parent html id attribute
+
+  // //set items in local storage.
+  // localStorage.setItem(time, text);
+
+
+
+  $(".time-block").each(function () {
+    var blockHour = parseInt($(this).attr("id").split("hour")[1]);
+    console.log( blockHour, currentHour)
+  });
+
+
+
+
+// // not needed
+// const txt1 = document.getElementById(".hour-");
+// const textarea = document.getElementById("id");
+// const out1 = document.getElementById(".description");
+
+//   function fun1(){
+//     out1.innerHtml= txt1.value;
+//   }
+//   btn1.addEventListener('click',fun1);
+
+
+//   for(var i=9; i <=17; i++){
+//     // var x=i % 12;
+//     // var amorpm = (i/12) > 1 ? "pm": "am"; 
+//     // console.log (x);
+//     console.log (localStorage.getItem("hour-"+i))
+//     // $("#"+x+amorpm).val(localStorage.getItem("hour-"+i))
+//     $("#"+i).val(localStorage.getItem("textarea"))
+// }
+
+   
+  //  for(var i=9; i <=17; i++){
+  //   $("#"+i).val(localStorage.getItem("hour-"+i))
+
+  // }
+
+  // $(".time-block").each(function () {
+  //   var blockHour = parseInt($(this).attr("id").split("hour")[1]);
+  //   console.log( blockHour, currentHour)
+  // }
+
+
+  // $(".saveBtn").click(function (event) {
+  //   event.preventDefault();
+  //   var value = $(this).siblings(".time-block").val();
+  //   var time = $(this).parent().attr("description").split("-")[1];
+  //   localStorage.setItem(time, value);
+  // });
+
+  // for(var i=1; i <=12; 1++){
+
+
+  // } 
 // };
 
 
@@ -170,4 +239,3 @@ var nineAm;
 //   localStorage.setItem("hour-" + hour, textValue);
 //   console.log(textValue);
 //   console.log(hour);
-// });
