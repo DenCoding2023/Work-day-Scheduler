@@ -14,7 +14,7 @@ $("#currentDay").text(today.format('dddd, MMMM D, YYYY h:mm A'));
 
 
 var currentDate = moment().format('dddd') + " " + moment().format("Do MMM YYYY");
-var currentHour = moment().format('h:mm:ss a');
+
 
 // // Creating the hour variable//
 // var nineAm = $("#9am");
@@ -44,25 +44,76 @@ var currentHour = moment().format('h:mm:ss a');
 
   function initPage() {
 
-    console.log("Current Hour " + hour);
+    // console.log("Current Hour " + hour);
     var init9 = JSON.parse(localStorage.getItem("09:00 am"));
     nineAm.val(init9);
   }
-      
-  $(".form-control").each(function () {
-      var timeTest = parseInt($(this).attr("id"));
-      hour = parseInt(hour);
-      console.log(timeTest);
-      console.log(hour);
-//      console.log(this);
-      if (hour > timeTest) {
-          $(this).addClass("past");
-      } else if (hour < timeTest) {
-          $(this).addClass("future");
-      } else {
-          $(this).addClass("present");
-      }
-  })
+     
+  function getTimeStatus(hour) {
+    // NOTES: getting the hour from each time block
+    var currentHour = dayjs().format("hA");
+    // console.log("currentHour: ", currentHour);
+
+    if (hour.localeCompare(currentHour) === -1) {
+      return "past";
+    } else if (hour.localeCompare(currentHour) === 0) {
+      return "present";
+    } else if (hour === "9AM" && currentHour.localeCompare("9AM") === -1) {
+      return "past";
+    } else {
+      return "future";
+    }
+  }
+
+
+
+
+  // This will control the time designation and color for each block//
+  $(".time-block").each(function () {
+    var hour = $(this).find(".hour-").text();
+    var status = getTimeStatus(hour);
+    // console.log("hour-: ", hour);
+    $(this)
+      .find(".description")
+      .removeClass("past present future")
+      .addClass(status);
+  });
+
+  // Set status of time blocks after the final hour of the day to "past"
+  var finalHour = dayjs("6PM", "hA");
+  var currentHour = dayjs();
+  // console.log("currentHour: ", currentHour);
+  if (currentHour.isAfter(finalHour)) {
+    $(".time-block")
+      .find(".description")
+      .removeClass("present future")
+      .addClass("past");
+  }
+
+  // Set status of time blocks before the first hour of the day to "future"
+  var firstHour = dayjs("9AM", "hA");
+  if (currentHour.isBefore(firstHour)) {
+    $(".time-block")
+      .find(".description")
+      .removeClass("past present")
+      .addClass("future");
+  }
+
+//   $(".form-control").each(function () {
+//       var timeTest = parseInt($(this).attr("id"));
+//       hour = parseInt(hour);
+//       console.log(timeTest);
+//       console.log(hour);
+// //      console.log(this);
+//       if (hour > timeTest) {
+//           $(this).addClass("past");
+//       } else if (hour < timeTest) {
+//           $(this).addClass("future");
+//       } else {
+//           $(this).addClass("present");
+//       }
+//   })
+
 //  changing textarea to descriptoin
   // Buttons (save to Local Storage)
   $(".saveBtn").on("click", function(){
@@ -76,13 +127,13 @@ var currentHour = moment().format('h:mm:ss a');
 
   // This gets the information from the consol log and puts it in the //
   // in the text area. So it saves the work//
-  let timeBlockEl = $(".time-block");
-  let timeBlockText = $(".description");
+ var timeBlockEl = $(".time-block");
+ var timeBlockText = $(".description");
 
 
   timeBlockText.each(function () {
-    let timeBlockId = $(this).parent().attr("id");
-    let savedDescription = localStorage.getItem(timeBlockId);
+    var timeBlockId = $(this).parent().attr("id");
+    var savedDescription = localStorage.getItem(timeBlockId);
     if (savedDescription) {
       $(this).val(savedDescription);
     }
@@ -91,7 +142,7 @@ var currentHour = moment().format('h:mm:ss a');
   // This is an event listenr for the clear button//
   // It will clear the inputs from the consol logs//
 
-  $("#clearFieldsBtn").click(function (event) {
+  $("#clearTextBtn").click(function (event) {
     event.preventDefault;
     $("textarea").val("");
     localStorage.clear();
@@ -112,10 +163,10 @@ var currentHour = moment().format('h:mm:ss a');
 
 
 
-  $(".time-block").each(function () {
-    var blockHour = parseInt($(this).attr("id").split("hour")[1]);
-    console.log( blockHour, currentHour)
-  });
+  // $(".time-block").each(function () {
+  //   var blockHour = parseInt($(this).attr("id").split("hour")[1]);
+  //   console.log( blockHour, currentHour)
+  // });
 
 
 
