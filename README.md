@@ -22,6 +22,11 @@ MIT license through the use of GITHUB.
 3. W3Schools: https://www.w3schools.com/
 4. Youtube: https://youtu.be/aEj0Wu33hJM
 
+## Aplication site:
+https://dencoding2023.github.io/Work-day-Scheduler/
+## Class Repository:
+https://github.com/DenCoding2023/Work-day-Scheduler.git
+
 ## Screen Shot of the Site
 ![Webstie Image](assests/images/Website%20Image.png)
 ![Entering text int the field](assests/schedule%20with%20consoleLog.png)
