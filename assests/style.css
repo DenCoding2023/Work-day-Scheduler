@@ -3,6 +3,15 @@ body {
     font-size: 16px;
   }
   
+  #clearFieldsBtn{
+    position: absolute;
+    top: auto;
+    left: 150px;
+    right: 150px;
+    bottom: auto;
+    margin: auto;
+  }
+
   textarea {
     background: transparent;
     border: none;

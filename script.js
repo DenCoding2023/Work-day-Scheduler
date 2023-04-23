@@ -16,21 +16,21 @@ $("#currentDay").text(today.format('dddd, MMMM D, YYYY h:mm A'));
 var currentDate = moment().format('dddd') + " " + moment().format("Do MMM YYYY");
 var currentHour = moment().format('h:mm:ss a');
 
-// Creating the hour variable//
-var nineAm = $("#9am");
-var tenAm = $("#10am");
-var elevenAm = $("#11am");
-var  twelvePm = $("#12pm");
-var  onePm = $("#1pm");
-var  twoPm = $("#2pm");
-var  threePm = $("#3pm");
-var  fourPm = $("#4pm");
-var fivePm = $("#5pm");
+// // Creating the hour variable//
+// var nineAm = $("#9am");
+// var tenAm = $("#10am");
+// var elevenAm = $("#11am");
+// var  twelvePm = $("#12pm");
+// var  onePm = $("#1pm");
+// var  twoPm = $("#2pm");
+// var  threePm = $("#3pm");
+// var  fourPm = $("#4pm");
+// var fivePm = $("#5pm");
 
-var hour = moment().hours();
-var userInput;
-var hourSpan;
-var nineAm;
+// var hour = moment().hours();
+// var userInput;
+// var hourSpan;
+// var nineAm;
 
 // function initPage() {
 
@@ -73,6 +73,9 @@ var nineAm;
     localStorage.setItem(hourSpan, JSON.stringify(userInput));
 
   })
+
+  // This gets the information from the consol log and puts it in the //
+  // in the text area. So it saves the work//
   let timeBlockEl = $(".time-block");
   let timeBlockText = $(".description");
 
@@ -83,6 +86,15 @@ var nineAm;
     if (savedDescription) {
       $(this).val(savedDescription);
     }
+  });
+
+  // This is an event listenr for the clear button//
+  // It will clear the inputs from the consol logs//
+
+  $("#clearFieldsBtn").click(function (event) {
+    event.preventDefault;
+    $("textarea").val("");
+    localStorage.clear();
   });
 
 
